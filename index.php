@@ -4,164 +4,170 @@ require_once 'partials/navbar.php';
 ?>
 
 <style>
-:root {
-  --primary-color: #173831;
-  --secondary-color: #DBF0DD;
-}
+  :root {
+    --primary-color: #173831;
+    --secondary-color: #DBF0DD;
+  }
 
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(23, 56, 49, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+  }
 
-.hero-content {
-  text-align: center;
-  color: white;
-  z-index: 2;
-}
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(23, 56, 49, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.hero-content h1 {
-  font-size: 3.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
+  .hero-content {
+    text-align: center;
+    color: white;
+    z-index: 2;
+  }
 
-.hero-content p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-}
+  .hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
 
-.btn-primary-custom {
-  color: white;
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  padding: 12px 30px;
-  font-weight: 600;
-  border-radius: 25px;
-  transition: all 0.3s ease;
-}
+  .hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
 
-.btn-primary-custom:hover {
-  background-color:#98CB19;
-  border-color: #0f251f;
-  transform: translateY(-2px);
-}
+  .btn-primary-custom {
+    color: white;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    padding: 12px 30px;
+    font-weight: 600;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+  }
 
-.section-title {
-  color: var(--primary-color);
-  font-weight: bold;
-  margin-bottom: 3rem;
-  position: relative;
-  display: inline-block;
-}
+  .btn-primary-custom:hover {
+    background-color: #98CB19;
+    border-color: #0f251f;
+    transform: translateY(-2px);
+  }
 
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background-color: var(--secondary-color);
-}
+  .section-title {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+  }
 
-.feature-card {
-  background: white;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-  overflow: hidden;
-  height: 100%;
-}
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--secondary-color);
+  }
 
-.feature-card:hover {
-  transform: translateY(-10px);
-}
+  .feature-card {
+    background: white;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    height: 100%;
+  }
 
-.feature-icon {
-  width: 80px;
-  height: 80px;
-  background-color: var(--secondary-color);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.5rem;
-  font-size: 2rem;
-  color: var(--primary-color);
-}
+  .feature-card:hover {
+    transform: translateY(-10px);
+  }
 
-.about-section {
-  background-color: var(--secondary-color);
-  padding: 80px 0;
-}
+  .feature-icon {
+    width: 80px;
+    height: 80px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: var(--primary-color);
+  }
 
-.chef-image {
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
+  .about-section {
+    background-color: var(--secondary-color);
+    padding: 80px 0;
+  }
 
-.stats-section {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 60px 0;
-}
+  .chef-image {
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
 
-.stat-item {
-  text-align: center;
-}
+  .stats-section {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 60px 0;
+  }
 
-.stat-number {
-  font-size: 3rem;
-  font-weight: bold;
-  display: block;
-}
+  .stat-item {
+    text-align: center;
+  }
 
-.stat-label {
-  font-size: 1.1rem;
-  opacity: 0.9;
-}
+  .stat-number {
+    font-size: 3rem;
+    font-weight: bold;
+    display: block;
+  }
 
-.testimonial-card {
-  background: white;
-  border-radius: 15px;
-  padding: 2rem;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-  margin-bottom: 2rem;
-}
+  .stat-label {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
 
-.testimonial-rating {
-  color: #ffc107;
-  margin-bottom: 1rem;
-}
+  .testimonial-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
 
-.cta-section {
-  background: linear-gradient(135deg, var(--primary-color), #0f251f);
-  color: white;
-  padding: 80px 0;
-  text-align: center;
-}
+  .testimonial-rating {
+    color: #ffc107;
+    margin-bottom: 1rem;
+  }
 
-.carousel-item {
-  position: relative;
-  height: 70vh;
-}
+  .cta-section {
+    background: linear-gradient(135deg, var(--primary-color), #0f251f);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+  }
 
-.carousel-item img {
-  height: 100%;
-  object-fit: cover;
-}
+  .carousel-item {
+    position: relative;
+    height: 70vh;
+  }
+
+  .carousel-item img {
+    height: 100%;
+    object-fit: cover;
+  }
 </style>
 
 <div class="container-fluid p-0">
@@ -174,7 +180,7 @@ require_once 'partials/navbar.php';
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"  class="d-block w-100"alt="Restaurant Hero">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="d-block w-100" alt="Restaurant Hero">
         <div class="hero-overlay">
           <div class="hero-content">
             <h1 class="display-4">Welcome to Our Restaurant</h1>
@@ -221,7 +227,7 @@ require_once 'partials/navbar.php';
     <h2 class="section-title">Why Choose Us</h2>
     <p class="text-muted">Discover what makes our restaurant special</p>
   </div>
-  
+
   <div class="row">
     <div class="col-md-4 mb-4">
       <div class="feature-card p-4 text-center h-100">
@@ -307,7 +313,7 @@ require_once 'partials/navbar.php';
   <!-- Products Section (Your existing section) -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="section-title">Our Products</h2>
-    
+
   </div>
   <!-- Products Grid -->
   <div id="productGrid" class="row mb-5"></div>
@@ -317,7 +323,7 @@ require_once 'partials/navbar.php';
     <h2 class="section-title">What Our Customers Say</h2>
     <p class="text-muted">Read authentic reviews from our valued guests</p>
   </div>
-  
+
   <div class="row mb-5">
     <div class="col-md-4">
       <div class="testimonial-card">
@@ -389,10 +395,10 @@ require_once 'partials/navbar.php';
 <?php require_once 'partials/footer.php'; ?>
 
 <script>
-// Auto-advance carousel every 5 seconds
-$(document).ready(function(){
-  $('#carouselExampleIndicators').carousel({
-    interval: 5000
+  // Auto-advance carousel every 5 seconds
+  $(document).ready(function() {
+    $('#carouselExampleIndicators').carousel({
+      interval: 5000
+    });
   });
-});
 </script>

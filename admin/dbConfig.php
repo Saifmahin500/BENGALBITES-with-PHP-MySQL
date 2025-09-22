@@ -4,7 +4,7 @@
 $DB_HOST = 'localhost';
 $DB_USER = 'root';
 $DB_PASS = '';
-$DB_NAME = 'shopdb';
+$DB_NAME = 'BengalBitesDB';
 
 try {
     $DB_con = new PDO("mysql:host={$DB_HOST}; dbname={$DB_NAME}", $DB_USER, $DB_PASS);

@@ -5,7 +5,7 @@ define('BASE_URL', 'http://localhost/PHP/BengalBites');
 class Database
 {
 	private $host = "localhost";
-	private $db_name = "shopdb";
+	private $db_name = "BengalBitesDB";
 	private $username = "root";
 	private $password = "";
 

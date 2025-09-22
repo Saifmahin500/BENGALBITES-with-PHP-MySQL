@@ -12,11 +12,15 @@ require_once __DIR__ . '/../admin/dbConfig.php';
 
 	<link rel="stylesheet" href="assets/css/style.css">
 
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 	<style>
 		body {
+			font-family: 'Poppins', sans-serif;
+			line-height: 1.6;
 			background: #f7f8fa;
 		}
-		
+
 
 		.main-wrap {
 			display: flex;

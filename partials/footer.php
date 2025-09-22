@@ -1,4 +1,11 @@
 <style>
+
+body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+		
 	/* Restaurant Footer Styles */
 	.restaurant-footer {
 		background: linear-gradient(135deg, #173831 0%, #2a5f54 100%);
@@ -12,8 +19,8 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		height: 4px;
-		background: linear-gradient(90deg, #DBF0DD 0%, #173831 50%, #DBF0DD 100%);
+		height: 1px;
+		background: white;
 	}
 
 	.footer-section h5 {
@@ -203,7 +210,7 @@
 	}
 </style>
 
-<footer class="restaurant-footer text-light pt-5 pb-4 mt-5">
+<footer class="restaurant-footer text-light pt-5 pb-4">
 	<div class="container">
 		<div class="row">
 			<!-- About Restaurant Column -->

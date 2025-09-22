@@ -58,77 +58,91 @@ try {
 
 
 <style>
-  /* ===== Brand Palette ===== */
-  :root {
-    --brand-dark: #173831;
-    /* primary text/icons */
-    --brand-light: #DBF0DD;
-    /* navbar bg */
-    --active-red: rgb(152, 203, 25);
-    /* active link color */
+  body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
   }
 
-  /* Navbar BG */
-  .navbar.fixed-top {
-    background-color: var(--brand-light) !important;
+  /* Global Navbar Styles */
+  .navbar {
+    background: #DBF0DD !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    padding: 0.8rem 1rem;
   }
 
-  /* Base colors (icons, links, brand) */
-  .navbar .navbar-brand,
-  .navbar .nav-link,
-  .navbar .btn,
-  .navbar i,
-  .navbar .fa,
-  .navbar .fa-solid {
-    color: var(--brand-dark) !important;
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #173831 !important;
+    display: flex;
+    align-items: center;
   }
 
-  /* ---- Active link: RED ---- */
-  .navbar-nav .nav-link.active {
-    color: var(--active-red) !important;
-    font-weight: 700 !important;
+  .navbar-brand i {
+    color: #173831;
+    margin-right: 8px;
   }
 
-  /* Hover underline */
+  /* Links */
   .navbar-nav .nav-link {
-    position: relative;
-    transition: color .3s ease;
+    font-weight: 500;
+    color: #333 !important;
+    margin: 0 10px;
+    transition: color 0.3s ease;
   }
 
-  .navbar-nav .nav-link::after {
+  .navbar-nav .nav-link:hover,
+  .navbar-nav .nav-link.active {
+    color: #173831 !important;
+    font-weight: 600;
+  }
+
+  /* Active underline */
+  .navbar-nav .nav-link.active::after {
     content: '';
-    position: absolute;
-    left: 0;
-    bottom: -3px;
-    width: 0;
+    display: block;
     height: 2px;
-    background-color: var(--brand-dark);
-    transition: width .3s ease;
+    background: #173831;
+    margin-top: 3px;
   }
 
-  .navbar-nav .nav-link:hover::after {
-    width: 100%;
+  /* Search box */
+  .navbar .form-control {
+    border-radius: 25px;
+    border: 1px solid #ccc;
+  }
+
+  .navbar .btn-search {
+    border-radius: 50%;
+    background: #173831;
+    color: #fff;
+  }
+
+  .navbar .btn-search:hover {
+    background: #2d5a4e;
   }
 
   /* Cart badge */
   #navCartCount {
-    background-color: var(--brand-dark) !important;
-    color: #fff !important;
+    background: #173831;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    position: absolute;
+    top: -6px;
+    right: -8px;
   }
 
-  /* Search / modal outline buttons */
-  .navbar .btn.btn-outline-light,
-  .navbar .btn.btn-outline-warning {
-    border-color: var(--brand-dark) !important;
-    color: var(--brand-dark) !important;
-    background-color: transparent !important;
+  /* Dropdown menu */
+  .navbar .dropdown-menu {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 
-  .navbar .btn.btn-outline-light:hover,
-  .navbar .btn.btn-outline-warning:hover {
-    background-color: var(--brand-dark) !important;
-    color: #fff !important;
-  }
 
   /* Toggler (Bootstrap 5) */
   .navbar .navbar-toggler {
@@ -175,8 +189,8 @@ try {
         </li>
 
         <li class="nav-item">
-          <a class="nav-link <?= $current === 'index.php' && $view === 'all' ? 'active' : '' ?>"
-            href="<?= $BASE ?>/index.php?view=all">
+          <a class="nav-link <?= $current === 'allMenu.php' ? 'active' : '' ?>"
+            href="<?= $BASE ?>/allMenu.php">
             Our Menu
           </a>
         </li>
