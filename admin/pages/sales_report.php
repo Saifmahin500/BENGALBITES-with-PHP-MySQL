@@ -1,127 +1,130 @@
 <?php
-require_once __DIR__ . '/../../config/dbconfig.php';
+require_once __DIR__ . "/../../config/dbconfig.php";
 
-// Database Connection
+// ডাটাবেস কানেকশন তৈরি করুন
 $database = new Database();
-$conn = $database->dbConnection();
+$pdo = $database->dbConnection(); // $pdo ভেরিয়েবলটি এখন ডাটাবেস কানেকশন ধারণ করবে
 
-// Default query: সব sales দেখাবে (Shows all sales)
-$query = "SELECT * FROM sales ORDER BY sale_date DESC";
+$start = $_GET['start_date'] ?? '';
+$end   = $_GET['end_date'] ?? '';
+$month = $_GET['month'] ?? '';
+$year  = $_GET['year'] ?? '';
+
 $params = [];
+$where = " WHERE 1=1 ";
 
-// যদি filter apply হয় (If filter is applied)
-if (!empty($_GET['from_date']) && !empty($_GET['to_date'])) {
-    // Filter by Date Range
-    $query = "SELECT * FROM sales WHERE DATE(sale_date) BETWEEN ? AND ? ORDER BY sale_date DESC";
-    $params = [$_GET['from_date'], $_GET['to_date']];
-} elseif (!empty($_GET['month'])) {
-    // Filter by Month
-    $query = "SELECT * FROM sales WHERE DATE_FORMAT(sale_date, '%Y-%m') = ? ORDER BY sale_date DESC";
-    $params = [$_GET['month']];
+// date range takes priority
+if ($start && $end) {
+    $where .= " AND DATE(order_date) BETWEEN ? AND ? ";
+    $params[] = $start;
+    $params[] = $end;
+} elseif ($month && $year) {
+    $where .= " AND MONTH(order_date) = ? AND YEAR(order_date) = ? ";
+    $params[] = $month;
+    $params[] = $year;
 }
 
-$stmt = $conn->prepare($query);
+// fetch rows from orders table
+$sql = "SELECT global_order_id, user_name, total_amount, status, order_date 
+        FROM orders
+        $where
+        GROUP BY global_order_id, user_name, total_amount, status, order_date
+        ORDER BY order_date DESC";
+$stmt = $pdo->prepare($sql);
 $stmt->execute($params);
-$sales = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Initialize grand total before use in the loop
-$grand_total = 0;
+// total amount calculation from orders table
+$totalSql = "SELECT COALESCE(SUM(total_amount), 0) AS total_amount FROM orders $where";
+$totalStmt = $pdo->prepare($totalSql);
+$totalStmt->execute($params);
+$totalRow = $totalStmt->fetch(PDO::FETCH_ASSOC);
+$totalAmount = $totalRow['total_amount'] ?? 0.00;
+
+// CSV export
+if (isset($_GET['export']) && $_GET['export'] === 'csv') {
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename=sales_report_' . date('Ymd') . '.csv');
+    $out = fopen('php://output', 'w');
+    fputcsv($out, ['Order Date', 'Customer Name', 'Order ID', 'Amount', 'Status']);
+    foreach ($orders as $r) {
+        fputcsv($out, [$r['order_date'], $r['user_name'], $r['global_order_id'], $r['total_amount'], $r['status']]);
+    }
+    fclose($out);
+    exit;
+}
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
     <title>Sales Report</title>
     <style>
-        /* Simple styling for better presentation */
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-
         table {
             border-collapse: collapse;
             width: 100%;
-            margin-top: 20px;
         }
 
         th,
         td {
             border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
+            padding: 8px;
         }
 
         th {
-            background-color: #f2f2f2;
+            background: #f4f4f4;
         }
 
-        .filter-form {
-            display: inline-block;
-            margin-right: 20px;
+        .filters {
+            margin-bottom: 12px;
         }
     </style>
 </head>
 
 <body>
-    <h1>Sales Report</h1>
+    <h2>Sales Report</h2>
 
-    <div class="filter-controls">
-        <form method="GET" class="filter-form">
-            <label>From: <input type="date" name="from_date" value="<?= htmlspecialchars($_GET['from_date'] ?? '') ?>"></label>
-            <label>To: <input type="date" name="to_date" value="<?= htmlspecialchars($_GET['to_date'] ?? '') ?>"></label>
-            <button type="submit">Filter by Date</button>
-        </form>
-
-        <form method="GET" class="filter-form">
-            <label>Month: <input type="month" name="month" value="<?= htmlspecialchars($_GET['month'] ?? '') ?>"></label>
-            <button type="submit">Filter by Month</button>
-        </form>
-    </div>
-
-    <br>
+    <form method="get" class="filters" action="pages/sales_report.php">
+        Start: <input type="date" name="start_date" value="<?= htmlspecialchars($start) ?>">
+        End: <input type="date" name="end_date" value="<?= htmlspecialchars($end) ?>">
+        Or Month:
+        <select name="month">
+            <option value="">--</option>
+            <?php for ($m = 1; $m <= 12; $m++): ?>
+                <option value="<?= $m ?>" <?= ($month == $m) ? 'selected' : '' ?>><?= $m ?></option>
+            <?php endfor; ?>
+        </select>
+        <input type="number" name="year" min="2000" max="2099" value="<?= htmlspecialchars($year ?: date('Y')) ?>">
+        <button type="submit">Filter</button>
+        <a href="?<?= http_build_query(array_merge($_GET, ['export' => 'csv'])) ?>">Export CSV</a>
+    </form>
 
     <table>
-        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Order ID</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Invoice</th>
+        </tr>
+        <?php foreach ($orders as $s): ?>
             <tr>
-                <th>Invoice No</th>
-                <th>Customer</th>
-                <th>Phone</th>
-                <th>Date</th>
-                <th>Total</th>
-                <th>Payable</th>
-                <th>Status</th>
-                <th>Action</th>
+                <td><?= $s['order_date'] ?></td>
+                <td><?= htmlspecialchars($s['user_name']) ?></td>
+                <td><?= $s['global_order_id'] ?></td>
+                <td><?= number_format($s['total_amount'], 2) ?></td>
+                <td><?= htmlspecialchars($s['status']) ?></td>
+                <td><a href="pages/invoice.php?id=<?= $s['global_order_id'] ?>" target="_blank">View/Print</a></td>
+
             </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($sales as $row) :
-                // Calculate grand total inside the loop
-                $grand_total += (float) $row['payable_amount'];
-            ?>
-                <tr>
-                    <td>#INV-<?= htmlspecialchars($row['id']) ?></td>
-                    <td><?= htmlspecialchars($row['user_name']) ?></td>
-                    <td><?= htmlspecialchars($row['phone']) ?></td>
-                    <td><?= htmlspecialchars($row['sale_date']) ?></td>
-                    <td><?= number_format($row['total_amount'], 2) ?></td>
-                    <td><?= number_format($row['payable_amount'], 2) ?></td>
-                    <td><?= htmlspecialchars(ucfirst($row['status'])) ?></td>
-                    <td>
-                        <a href="invoice.php?id=<?= htmlspecialchars($row['id']) ?>" target="_blank">Invoice</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5" style="text-align: right;"><b>Grand Total:</b></td>
-                <td colspan="3"><b><?= number_format($grand_total, 2) ?></b></td>
-            </tr>
-        </tfoot>
+        <?php endforeach; ?>
+        <tr>
+            <th colspan="5" style="text-align:right">Total</th>
+            <th colspan="1"><?= number_format($totalAmount, 2) ?></th>
+        </tr>
     </table>
 </body>
 
