@@ -58,6 +58,10 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             max-height: 300px;
             object-fit: cover;
         }
+        .custom-table-thead{
+            background: linear-gradient(135deg, #3485A7 0%, #1e4239 100%);
+            color: white;
+        }
     </style>
 </head>
 
@@ -69,7 +73,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <a href="?page=addNew" class="btn btn-primary mb-2">Add New Products</a>
 
         <table class="table table-bordered table-hover">
-            <thead class="table-info">
+            <thead class="custom-table-thead">
                 <tr>
                     <th>Image</th>
                     <th>Name</th>

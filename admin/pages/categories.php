@@ -31,6 +31,10 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			border: 10px solid #000;
 			margin-right: 4px;
 		}
+		.custom-table-thead{
+            background: linear-gradient(135deg, #3485A7 0%, #1e4239 100%);
+            color: white;
+        }
 	</style>
 </head>
 <body>
@@ -40,7 +44,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		<a href="?page=add_categories" class="btn btn-primary mb-2">ADD Categories</a>
 		<p></p>
 		<table class="table table-bordered table-hover">
-			<thead class="table-info">
+			<thead class="custom-table-thead">
 				<tr>
 					<th>Name</th>
 					<th>Action</th>

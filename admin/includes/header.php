@@ -59,7 +59,8 @@
 		}
 
 		.sidebar a:hover {
-			background-color: #08417a;
+			background: linear-gradient(135deg, #3485A7 0%, #1e4239 100%);
+			color: white;
 			text-decoration: none;
 		}
 

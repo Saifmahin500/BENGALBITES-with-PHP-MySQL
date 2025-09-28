@@ -40,9 +40,16 @@ try {
 
 <?php else: ?>
 
+	<style>
+		.custom-table-thead {
+			background: linear-gradient(135deg, #3485A7 0%, #1e4239 100%);
+			color: white;
+		}
+	</style>
+
 	<div class="table-responsive">
 		<table class="table table-bordered table-striped">
-			<thead class="table-info">
+			<thead class="custom-table-thead">
 				<tr>
 					<th style="white-space: nowrap;">Order ID</th>
 					<th>User</th>
@@ -94,7 +101,7 @@ try {
 								<option value="delivered" <?= ($r['status'] === 'delivered' ? 'selected' : '') ?>>Delivered</option>
 
 								<option value="completed" <?= ($r['status'] === 'completed' ? 'selected' : '') ?>>Completed</option>
-								<option value="Canceled" <?= ($r['status'] === 'Canceled' ? 'selected' : '') ?>>Canceled</option>
+								<option value="cancelled" <?= ($r['status'] === 'cancelled' ? 'selected' : '') ?>>cancelled</option>
 							</select>
 						</td>
 					</tr>

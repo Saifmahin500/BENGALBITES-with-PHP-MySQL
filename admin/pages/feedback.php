@@ -16,6 +16,13 @@ $stmt = $conn->query($sql);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+<style>
+    .custom-table-thead {
+        background: linear-gradient(135deg, #3485A7 0%, #1e4239 100%);
+        color: white;
+    }
+</style>
+
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h4 class="mb-0">user Feedback</h4>
     <div>
@@ -27,7 +34,7 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="table-responsive">
     <table class="table table-bordered table-striped" id="fbTable">
-        <thead>
+        <thead class="custom-table-thead">
             <tr>
                 <th style="width: 40px;">Select Message
                     <input type="checkbox" name="selectAll" id="selectAll">
