@@ -42,7 +42,7 @@ try {
 
 	<style>
 		.custom-table-thead {
-			background: linear-gradient(135deg, #3485A7 0%, #1e4239 100%);
+			background: #3485A7;
 			color: white;
 		}
 	</style>

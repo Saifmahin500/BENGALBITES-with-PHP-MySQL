@@ -165,7 +165,7 @@ if (!$order) {
         <div class="invoice-header">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <h1 class="company-name">BENGALBITES</h1>
+                    <h1 class="company-name">🍴BENGALBITES</h1>
                     <h2 class="invoice-title">Invoice</h2>
                 </div>
                 <div class="col-md-6 text-md-right">
@@ -237,9 +237,9 @@ if (!$order) {
                                 <strong>Products:</strong><br>
                                 <?php echo htmlspecialchars($order['items']); ?>
                             </td>
-                            <td class="text-right">৳ <?php echo number_format($order['total_amount'], 2); ?></td>
-                            <td class="text-right">৳ <?php echo number_format($order['coupon_discount'], 2); ?></td>
-                            <td class="text-right">৳ <?php echo number_format($order['payable_amount'], 2); ?></td>
+                            <td class="text-right"><?php echo number_format($order['total_amount'], 2); ?></td>
+                            <td class="text-right"><?php echo number_format($order['coupon_discount'], 2); ?></td>
+                            <td class="text-right"><?php echo number_format($order['payable_amount'], 2); ?></td>
                         </tr>
                         <tr class="total-row">
                             <td colspan="3" class="text-right"><strong>Grand Total:</strong></td>

@@ -64,7 +64,7 @@ $recent_orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <style>
         :root {
             --primary-color: #3485A7;
-            --secondary-color:rgb(106, 193, 212);
+            --secondary-color: rgb(106, 193, 212);
             --light-green: #f8fffe;
         }
 
@@ -74,12 +74,12 @@ $recent_orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #1e4239 100%);
+            background: #3485A7;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .page-header {
-           
+
             color: black;
             padding: 2rem 0;
             margin-bottom: 2rem;
@@ -165,7 +165,7 @@ $recent_orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .card-header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #1e4239 100%);
+            background: #3485A7;
             border: none;
             color: white;
             padding: 1.5rem 2rem;
