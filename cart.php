@@ -115,9 +115,9 @@ shrink-to-fit=no">
 				<div class="cart-card">
 					<div class="cart-head d-flex align-items-center
 justify-content-between">
-						<div>Shopping Cart</div>
+						<div>Order Cart</div>
 						<a href="<?= htmlspecialchars($BASE) ?>/index.php"
-							class="btn btn-sm btn-outline-secondary">Continue Shopping</a>
+							class="btn btn-sm btn-outline-secondary">Keep Ordering</a>
 					</div>
 
 					<?php if (empty($items)): ?>
